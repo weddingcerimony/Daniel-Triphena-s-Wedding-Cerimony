@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Verifica invito — Daniel & Tryphena</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://script.google.com/macros/s/AKfycbwN9mvAacFpnbQU4wMz2d1jqnLJpn7bm97mJOQMXGgw2HDP46Ed3QpuxV7C6Mfml2IUNw/exec">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#2a211b;
@@ -30,7 +30,7 @@
   }
   h1,h2{font-family:'Cormorant Garamond', serif; font-weight:500;}
   .box{
-    max-width:420px;
+    max-width:440px;
     width:100%;
     background:var(--paper);
     border:1px solid var(--line);
@@ -82,18 +82,31 @@
 
   .result{
     margin-top:22px;
-    padding:16px;
-    font-size:0.9rem;
+    padding:18px;
+    font-size:0.92rem;
     text-align:left;
     display:none;
+    line-height:1.6;
   }
   .result.show{display:block;}
   .result.ok{background:#eef1ec; border:1px solid var(--forest); color:var(--forest);}
   .result.pending{background:#f6ede4; border:1px solid #8a5a3f; color:#8a5a3f;}
   .result.notfound{background:#f6e9e9; border:1px solid #8a3f3f; color:#8a3f3f;}
 
-  .details{margin-top:14px; line-height:1.7;}
-  .details strong{color:var(--ink);}
+  .details{margin-top:14px; padding-top:14px; border-top:1px solid rgba(0,0,0,0.1); line-height:1.7; color:var(--ink);}
+  .details strong{display:inline-block; min-width:100px;}
+
+  .pay-link{
+    display:inline-block;
+    margin-top:14px;
+    padding:10px 18px;
+    background:var(--ink);
+    color:var(--paper) !important;
+    text-decoration:none;
+    font-size:0.85rem;
+    letter-spacing:0.03em;
+  }
+  .pay-link:hover{background:var(--gold); color:var(--ink) !important;}
 
   a.back{
     display:inline-block;
@@ -128,12 +141,36 @@
 
 <script>
   // Sostituisci questo URL con quello del tuo Google Apps Script
-  // (lo ottieni dopo il deploy, vedi README.md)
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyvjPwZmf7QP6g42vwQE8PScSjjLlevn0yAGPqaGcwpG07oI3kII6O5ftjVtf0opkkTWQ/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwCC0ITqThylJSf_ddK7avQ7A9Hnv2tbkT4Zqwgkytg25ZK2t9DRy5ZvlJ2oKpCcZe57A/exec";
+
+  // Personalizza questi valori:
+  const IMPORTO_DA_PAGARE = "100"; // es. importo in euro
+  const LINK_PAGAMENTO = "#"; // es. link PayPal, Satispay, bonifico ecc.
+  const NUMERO_CONTATTO = "+39 000 000 0000"; // numero da mostrare a chi non è in lista
+
+  // Dettagli reception — compilali una volta sola qui
+  const DETTAGLI_RECEPTION = {
+    location: "[Nome venue]",
+    indirizzo: "[Indirizzo completo]",
+    parcheggio: "[Info parcheggio]",
+    orario: "[Orario reception]",
+    menu: "[Descrizione menu / link al menu]"
+  };
 
   const form = document.getElementById('checkForm');
   const resultBox = document.getElementById('result');
   const btn = document.getElementById('submitBtn');
+
+  function detailsHTML(){
+    return `
+      <div class="details">
+        <div><strong>Location:</strong> ${DETTAGLI_RECEPTION.location}</div>
+        <div><strong>Indirizzo:</strong> ${DETTAGLI_RECEPTION.indirizzo}</div>
+        <div><strong>Parcheggio:</strong> ${DETTAGLI_RECEPTION.parcheggio}</div>
+        <div><strong>Orario:</strong> ${DETTAGLI_RECEPTION.orario}</div>
+        <div><strong>Menu:</strong> ${DETTAGLI_RECEPTION.menu}</div>
+      </div>`;
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -152,21 +189,20 @@
 
       if(data.status === "not_found"){
         resultBox.className = "result notfound show";
-        resultBox.innerHTML = "Non troviamo il tuo nome nella lista invitati. Contatta Daniel o Tryphena se pensi sia un errore.";
+        resultBox.innerHTML = `Sorry, non risulti nella lista invitati. Per informazioni contattaci al ${NUMERO_CONTATTO}.`;
+
       } else if(data.status === "pending"){
         resultBox.className = "result pending show";
-        resultBox.innerHTML = "Ti abbiamo trovato nella lista! Risulta però che la quota non sia ancora stata versata. Contattaci per completare il pagamento e sbloccare i dettagli della reception.";
+        resultBox.innerHTML = `
+          <strong>Ciao ${nome}!</strong> Ti abbiamo trovato nella lista.<br>
+          Ricordati di completare la quota di partecipazione (€${IMPORTO_DA_PAGARE}) per confermare la tua presenza.
+          <br><a class="pay-link" href="${LINK_PAGAMENTO}" target="_blank">Vai al pagamento &rarr;</a>
+          ${detailsHTML()}`;
+
       } else if(data.status === "confirmed"){
         resultBox.className = "result ok show";
-        resultBox.innerHTML = `
-          <strong>Benvenuto/a, ${nome}!</strong><br><br>
-          <div class="details">
-            <strong>Location:</strong> [Nome venue]<br>
-            <strong>Indirizzo:</strong> [Indirizzo completo]<br>
-            <strong>Parcheggio:</strong> [Info parcheggio]<br>
-            <strong>Dress code:</strong> [Dress code]<br>
-            <strong>Orario:</strong> [Orario reception]
-          </div>`;
+        resultBox.innerHTML = `<strong>Benvenuto/a, ${nome}!</strong> La tua presenza è confermata.${detailsHTML()}`;
+
       } else {
         resultBox.className = "result notfound show";
         resultBox.innerHTML = "Si è verificato un errore. Riprova tra poco.";
