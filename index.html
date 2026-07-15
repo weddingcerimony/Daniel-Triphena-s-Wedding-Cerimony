@@ -1,3 +1,4 @@
+cat > /mnt/user-data/outputs/wedding-site/index.html << 'HTML_EOF'
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -5,265 +6,398 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Daniel & Tryphena — Il nostro matrimonio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#2a211b;
+    --espresso:#2b1710;
     --gold:#b8935a;
-    --gold-soft:#d9c3a0;
-    --rose:#c79c86;
+    --gold-soft:#e8c992;
     --cream:#f6f1e7;
-    --forest:#33422f;
-    --paper:#fbf8f2;
-    --line: rgba(42,33,27,0.14);
-    --radius: 2px;
+    --glass-bg-light: rgba(255,253,248,0.5);
+    --glass-border-light: rgba(184,147,90,0.35);
+    --glass-bg-dark: rgba(255,250,240,0.08);
+    --glass-border-dark: rgba(255,255,255,0.22);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
-    background:var(--cream);
-    color:var(--ink);
-    font-family:'Jost', sans-serif;
+    font-family:'Manrope', sans-serif;
     font-weight:300;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
+    color:var(--ink);
+    background:var(--cream);
   }
-  h1,h2,h3{
-    font-family:'Cormorant Garamond', serif;
-    font-weight:500;
-    letter-spacing:0.01em;
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:720px; margin:0 auto; padding:0 22px;}
+
+  /* ---------- Glass ---------- */
+  .glass-light{
+    background: var(--glass-bg-light);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid var(--glass-border-light);
+    border-radius: 20px;
+    box-shadow: 0 8px 28px rgba(42,33,27,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
   }
-  a{color:inherit;}
-  .wrap{
-    max-width:760px;
-    margin:0 auto;
-    padding:0 28px;
+  .glass-dark{
+    background: var(--glass-bg-dark);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    border: 1px solid var(--glass-border-dark);
+    border-radius: 20px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
   }
+
+  /* ---------- Top nav ---------- */
+  .topnav{
+    display:flex; justify-content:center; gap:28px;
+    padding:22px 0;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:#8a6a3f;
+    flex-wrap:wrap;
+  }
+  .topnav a:hover{color:var(--gold);}
 
   /* ---------- Hero ---------- */
   .hero{
-    position:relative;
-    padding:72px 0 56px;
     text-align:center;
+    padding:10px 0 50px;
     background:
-      radial-gradient(120% 90% at 50% -10%, rgba(184,147,90,0.14), transparent 60%),
+      radial-gradient(120% 90% at 15% -10%, #f3ddb8 0%, transparent 55%),
+      radial-gradient(110% 80% at 100% 10%, #ecd0ae 0%, transparent 55%),
       var(--cream);
-    border-bottom:1px solid var(--line);
   }
-  .monogram{
-    width:104px; height:104px;
-    margin:0 auto 28px;
-    border:1px solid var(--gold);
-    border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    position:relative;
-  }
-  .monogram::before{
-    content:"";
-    position:absolute; inset:6px;
-    border:1px solid var(--gold-soft);
-    border-radius:50%;
-  }
-  .monogram span{
-    font-family:'Cormorant Garamond', serif;
-    font-size:2rem;
-    font-style:italic;
-    color:var(--gold);
-    letter-spacing:0.04em;
-  }
-  .hero-photo{
-    width:168px; height:168px;
-    border-radius:50%;
-    object-fit:cover;
-    margin:0 auto 30px;
-    border:3px solid var(--paper);
-    outline:1px solid var(--line);
-    display:block;
-  }
-  .eyebrow{
-    font-size:0.72rem;
+  .names{
+    font-size:0.85rem;
+    letter-spacing:0.32em;
     text-transform:uppercase;
-    letter-spacing:0.28em;
-    color:var(--forest);
-    margin-bottom:14px;
-  }
-  .hero h1{
-    font-size:clamp(2.4rem, 6vw, 3.6rem);
     color:var(--ink);
+    margin-bottom:26px;
   }
-  .hero h1 em{
-    font-style:italic;
-    color:var(--gold);
-  }
-  .hero .sub{
-    margin-top:14px;
-    font-size:1.05rem;
-    color:#5a4c3f;
-  }
-  .hero .date{
-    margin-top:26px;
-    display:inline-flex;
-    gap:18px;
-    font-family:'Cormorant Garamond', serif;
-    font-size:1.3rem;
-    color:var(--ink);
-    padding-top:18px;
-    border-top:1px solid var(--line);
-  }
-  .hero .date span:nth-child(2){color:var(--gold);}
-
-  /* ---------- Sections nav (cards) ---------- */
-  .cards{
-    padding:52px 0 64px;
-  }
-  .card{
-    background:var(--paper);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:26px 28px;
-    margin-bottom:16px;
-    transition:border-color .2s ease, transform .2s ease;
-  }
-  .card:hover{border-color:var(--gold); transform:translateY(-1px);}
-  .card-head{
-    display:flex;
-    align-items:center;
+  .photo-grid{
+    display:grid;
+    grid-template-columns: 0.8fr 1.3fr 0.8fr;
     gap:12px;
-    margin-bottom:8px;
+    align-items:center;
+    max-width:560px;
+    margin:0 auto 26px;
   }
-  .card-head .icon{
-    font-size:1.1rem;
-    color:var(--gold);
-    width:22px;
+  .photo-grid img{
+    width:100%;
+    display:block;
+    border-radius:14px;
+    object-fit:cover;
+  }
+  .photo-grid .side{height:170px; object-position:top;}
+  .photo-grid .center{height:260px;}
+  .date-glass{
+    display:inline-block;
+    padding:16px 30px;
+    margin-bottom:18px;
+  }
+  .date-glass .num{
+    font-family:'Fraunces', serif;
+    font-size:clamp(2.4rem, 8vw, 3.6rem);
+    letter-spacing:0.03em;
+    color:var(--ink);
+  }
+  .tagline{
+    max-width:380px;
+    margin:0 auto;
+    font-size:0.92rem;
+    color:#5a4c3f;
+    line-height:1.6;
+  }
+
+  /* ---------- Section headers ---------- */
+  .eyebrow{
+    text-align:center;
+    font-size:0.7rem;
+    letter-spacing:0.26em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .section-title{
+    text-align:center;
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:clamp(1.7rem, 5vw, 2.3rem);
+    margin-bottom:34px;
+  }
+
+  /* ---------- Schedule (dark band) ---------- */
+  .schedule{
+    background: linear-gradient(160deg, var(--espresso) 0%, #5a3520 100%);
+    color:var(--cream);
+    padding:60px 0;
+  }
+  .schedule .eyebrow{color:var(--gold-soft);}
+  .schedule-panel{
+    padding:30px 20px;
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:22px;
     text-align:center;
   }
-  .card-head h2{
+  .schedule-panel .time{
+    font-family:'Fraunces', serif;
     font-size:1.5rem;
-    color:var(--ink);
+    color:var(--gold-soft);
   }
-  .card p{
-    color:#5a4c3f;
-    font-size:0.98rem;
-    padding-left:34px;
-  }
-  .card .badge{
-    display:inline-block;
-    margin-top:10px;
-    margin-left:34px;
-    font-size:0.7rem;
+  .schedule-panel .label{
+    margin-top:6px;
+    font-size:0.72rem;
     letter-spacing:0.12em;
     text-transform:uppercase;
-    color:var(--forest);
-    border:1px solid var(--forest);
+    color:rgba(250,243,231,0.8);
+  }
+  @media (min-width:480px){
+    .schedule-panel{grid-template-columns:repeat(4, 1fr);}
+  }
+
+  /* ---------- Location ---------- */
+  .location{padding:60px 0; text-align:center;}
+  .location img{
+    width:100%; max-width:340px;
+    border-radius:18px;
+    margin:22px auto;
+    display:block;
+  }
+  .location .addr{
+    font-size:0.9rem;
+    color:#5a4c3f;
+    line-height:1.7;
+    margin-top:10px;
+  }
+
+  /* ---------- Countdown (dark) ---------- */
+  .countdown{
+    background: linear-gradient(160deg, #3a2416 0%, #7a4326 100%);
+    color:var(--cream);
+    padding:60px 0;
+    text-align:center;
+  }
+  .countdown .eyebrow{color:var(--gold-soft);}
+  .countdown-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .countdown-grid .box{padding:16px 6px;}
+  .countdown-grid .n{
+    font-family:'Fraunces', serif;
+    font-size:1.8rem;
+    color:var(--gold-soft);
+  }
+  .countdown-grid .l{
+    font-size:0.62rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:rgba(250,243,231,0.7);
+    margin-top:4px;
+  }
+
+  /* ---------- Registry / Dress code / Reception ---------- */
+  .tiles{padding:60px 0;}
+  .tile-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  .tile{
+    padding:22px 18px;
+    text-align:center;
+  }
+  .tile h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:1.15rem;
+    margin-bottom:8px;
+  }
+  .tile p{
+    font-size:0.85rem;
+    color:#5a4c3f;
+    line-height:1.5;
+  }
+  .tile .badge{
+    display:inline-block;
+    margin-top:10px;
+    font-size:0.64rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:#8a5a3f;
+    background:rgba(184,147,90,0.15);
+    border:1px solid rgba(184,147,90,0.4);
     padding:3px 10px;
     border-radius:20px;
   }
-  .card.locked .badge{
-    color:#8a5a3f;
-    border-color:#8a5a3f;
-  }
-  .card a.cta{
+  .tile a.cta{
     display:inline-block;
-    margin-top:14px;
-    margin-left:34px;
-    font-size:0.85rem;
-    text-decoration:none;
-    color:var(--paper);
-    background:var(--ink);
-    padding:9px 18px;
-    border-radius:1px;
-    letter-spacing:0.03em;
-  }
-  .card a.cta:hover{background:var(--gold); color:var(--ink);}
-
-  /* ---------- divider ---------- */
-  .divider{
-    display:flex; align-items:center; gap:14px;
-    color:var(--gold);
-    margin:8px 0 30px;
+    margin-top:12px;
     font-size:0.8rem;
+    color:var(--cream);
+    background:var(--ink);
+    padding:8px 18px;
+    border-radius:20px;
+    font-weight:500;
   }
-  .divider::before, .divider::after{
-    content:"";
-    height:1px;
-    flex:1;
-    background:var(--line);
-  }
+  .tile a.cta:hover{background:var(--gold); color:var(--ink);}
 
   footer{
     text-align:center;
-    padding:36px 0 56px;
-    font-size:0.82rem;
+    padding:36px 0 46px;
+    font-size:0.85rem;
     color:#8a7c6d;
+    background:var(--cream);
   }
-  footer .rings{color:var(--gold); font-size:1rem; margin-bottom:6px;}
+  footer .rings{font-size:1.1rem; margin-bottom:8px;}
 
   @media (max-width:480px){
-    .hero{padding:56px 0 40px;}
-    .card{padding:22px 20px;}
+    .photo-grid{grid-template-columns:0.7fr 1.4fr 0.7fr; gap:8px;}
+    .photo-grid .side{height:120px;}
+    .photo-grid .center{height:200px;}
+    .tile-grid{grid-template-columns:1fr;}
   }
 </style>
 </head>
 <body>
 
+  <nav class="topnav">
+    <a href="#programma">Programma</a>
+    <a href="#location">Location</a>
+    <a href="#regali">Regali</a>
+    <a href="#reception">Reception</a>
+  </nav>
+
   <section class="hero">
     <div class="wrap">
-      <img class="hero-photo" src="couple.jpg" alt="Daniel e Tryphena">
-      <div class="eyebrow">Vi invitiamo a celebrare con noi</div>
-      <h1>Daniel <em>&</em> Tryphena</h1>
-      <div class="sub">Stiamo per sposarci, e vorremmo che tu fossi lì con noi.</div>
-      <div class="date">
-        <span>Sabato</span><span>•</span><span>[Data da confermare]</span>
+      <div class="names">Daniel &amp; Tryphena</div>
+
+      <div class="photo-grid">
+        <img class="side" src="couple.jpg" alt="" style="object-position:left top;">
+        <img class="center" src="couple.jpg" alt="Daniel e Tryphena">
+        <img class="side" src="couple.jpg" alt="" style="object-position:right top;">
+      </div>
+
+      <div class="date-glass glass-light">
+        <div class="num">[GG · MM · AAAA]</div>
+      </div>
+
+      <div class="tagline">Vi invitiamo a condividere con noi un giorno di gioia, amore e nuovi inizi.</div>
+    </div>
+  </section>
+
+  <section class="schedule" id="programma">
+    <div class="wrap">
+      <div class="eyebrow">Ecco un'anteprima</div>
+      <div class="section-title">Il programma di Sabato</div>
+
+      <div class="schedule-panel glass-dark">
+        <div>
+          <div class="time">[16:00]</div>
+          <div class="label">Cerimonia</div>
+        </div>
+        <div>
+          <div class="time">[17:00]</div>
+          <div class="label">Aperitivo</div>
+        </div>
+        <div>
+          <div class="time">[18:30]</div>
+          <div class="label">Cena</div>
+        </div>
+        <div>
+          <div class="time">[21:00]</div>
+          <div class="label">Festa</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="cards">
+  <section class="location" id="location">
     <div class="wrap">
-
-      <div class="divider">IL PROGRAMMA</div>
-
-      <div class="card">
-        <div class="card-head">
-          <span class="icon">&#128197;</span>
-          <h2>Programma di Sabato</h2>
-        </div>
-        <p>Cerimonia, cena e festa — tutti i dettagli su orari e location.</p>
+      <div class="eyebrow">Dove</div>
+      <div class="section-title">Location</div>
+      <img src="couple.jpg" alt="Location" class="glass-light" style="object-fit:cover; height:220px;">
+      <div class="addr">
+        [Nome location]<br>
+        [Indirizzo completo]
       </div>
+    </div>
+  </section>
 
-      <div class="card">
-        <div class="card-head">
-          <span class="icon">&#127873;</span>
-          <h2>Regali e coordinate bancarie</h2>
-        </div>
-        <p>Se desideri farci un regalo, qui trovi tutte le informazioni.</p>
+  <section class="countdown">
+    <div class="wrap">
+      <div class="eyebrow">Che il conto alla rovescia abbia inizio</div>
+      <div class="section-title" style="color:var(--cream);">Manca sempre meno</div>
+      <div class="countdown-grid">
+        <div class="box glass-dark"><div class="n" id="cd-days">--</div><div class="l">Giorni</div></div>
+        <div class="box glass-dark"><div class="n" id="cd-hours">--</div><div class="l">Ore</div></div>
+        <div class="box glass-dark"><div class="n" id="cd-min">--</div><div class="l">Minuti</div></div>
+        <div class="box glass-dark"><div class="n" id="cd-sec">--</div><div class="l">Secondi</div></div>
       </div>
+    </div>
+  </section>
 
-      <div class="card locked">
-        <div class="card-head">
-          <span class="icon">&#127860;</span>
-          <h2>Informazioni Reception</h2>
+  <section class="tiles" id="regali">
+    <div class="wrap">
+      <div class="eyebrow">Un pensiero per noi</div>
+      <div class="section-title">Regali &amp; Reception</div>
+      <div class="tile-grid">
+        <div class="tile glass-light">
+          <h3>🎁 Regali</h3>
+          <p>Coordinate bancarie e informazioni sul regalo di nozze.</p>
         </div>
-        <p>Venue, parcheggio e dress code — riservate agli invitati confermati.</p>
-        <span class="badge">Accesso riservato</span><br>
-        <a class="cta" href="verify.html">Verifica il tuo invito &rarr;</a>
-      </div>
-
-      <div class="card">
-        <div class="card-head">
-          <span class="icon">&#128248;</span>
-          <h2>Galleria fotografica</h2>
+        <div class="tile glass-light" id="reception">
+          <h3>🍽️ Reception</h3>
+          <p>Venue, parcheggio e dress code — riservate agli invitati confermati.</p>
+          <span class="badge">Accesso riservato</span><br>
+          <a class="cta" href="verify.html">Verifica invito &rarr;</a>
         </div>
-        <p>Condividi i tuoi scatti e i tuoi ricordi della giornata con noi.</p>
       </div>
-
     </div>
   </section>
 
   <footer>
-    <div class="rings">&#128141;</div>
-    Con affetto, Daniel & Tryphena
+    <div class="rings">💍</div>
+    Con affetto, Daniel &amp; Tryphena
   </footer>
+
+<script>
+  // Imposta qui la data e l'ora reali del matrimonio per attivare il countdown
+  // Formato: "AAAA-MM-GGTHH:MM:00"
+  const WEDDING_DATE = null; // es. "2026-09-12T16:00:00"
+
+  if (WEDDING_DATE) {
+    const target = new Date(WEDDING_DATE).getTime();
+    function updateCountdown(){
+      const now = Date.now();
+      const diff = target - now;
+      if (diff <= 0) {
+        document.getElementById('cd-days').textContent = "0";
+        document.getElementById('cd-hours').textContent = "0";
+        document.getElementById('cd-min').textContent = "0";
+        document.getElementById('cd-sec').textContent = "0";
+        return;
+      }
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff / (1000*60*60)) % 24);
+      const m = Math.floor((diff / (1000*60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      document.getElementById('cd-days').textContent = d;
+      document.getElementById('cd-hours').textContent = h;
+      document.getElementById('cd-min').textContent = m;
+      document.getElementById('cd-sec').textContent = s;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  }
+</script>
 
 </body>
 </html>
+HTML_EOF
+echo done
