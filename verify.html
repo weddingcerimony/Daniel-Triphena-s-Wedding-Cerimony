@@ -1,205 +1,24 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verifica invito — Daniel & Tryphena</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{
---bg:#151110;
---bg2:#241714;
---accent:#ff6d2a;
---text:#ffffff;
---muted:#bdbdbd;
---glass:rgba(255,255,255,.06);
---line:rgba(255,255,255,.12);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:24px;
-font-family:'Manrope',sans-serif;
-color:var(--text);
-background:
-radial-gradient(circle at 15% 15%,rgba(255,109,42,.25),transparent 28%),
-radial-gradient(circle at 80% 75%,rgba(255,109,42,.12),transparent 25%),
-linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
-}
-h1{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:600;margin-bottom:8px}
-.box{
-max-width:520px;width:100%;
-background:var(--glass);
-backdrop-filter:blur(24px);
-border:1px solid var(--line);
-border-radius:28px;
-padding:42px 36px;
-box-shadow:0 20px 60px rgba(0,0,0,.25);
-}
-.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
-.sub{color:var(--muted);margin-bottom:28px}
-label{display:block;margin:16px 0 8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-input{
-width:100%;padding:14px 16px;border-radius:14px;
-border:1px solid var(--line);
-background:rgba(255,255,255,.04);
-color:#fff;font-family:'Manrope',sans-serif}
-button{
-margin-top:22px;width:100%;padding:14px;border:none;border-radius:999px;
-background:var(--accent);color:#fff;font-family:'Manrope',sans-serif;font-weight:600;cursor:pointer}
-.result{margin-top:22px;padding:18px;border-radius:18px;display:none;line-height:1.6}
-.result.show{display:block}
-.result.ok,.result.pending,.result.notfound,.result.debug{
-background:rgba(255,255,255,.05);
-border:1px solid var(--line);
-color:#fff}
-.details{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
-.pay-link{display:inline-block;margin-top:14px;padding:10px 16px;border-radius:999px;background:var(--accent);color:#fff!important;text-decoration:none}
-.back{display:inline-block;margin-top:20px;color:var(--muted);text-decoration:none}
-
-input::placeholder{
-color:rgba(255,255,255,.45);
-}
-input,
-input:focus,
-input:active{
-color:#ffffff;
-caret-color:#ffffff;
-}
-
-</style>
-</head>
-<body>
-
-  <div class="box">
-    <div class="eyebrow">PRIVATE RECEPTION ACCESS</div>
-    <h1>Verify Your Invitation</h1>
-    <div class="sub">Enter your first and last name exactly as written on your invitation.</div>
-
-    <form id="checkForm">
-      <label for="cognome">Last Name</label>
-      <input type="text" id="cognome" required autocomplete="family-name">
-
-      <label for="nome">First Name</label>
-      <input type="text" id="nome" required autocomplete="given-name">
-
-      <button type="submit" id="submitBtn">Verify Invitation</button>
-    </form>
-
-    <div id="result" class="result"></div>
-
-    <a class="back" href="index.html">&larr; Back to Home</a>
-  </div>
-
-<script>
-  // Sostituisci questo URL con quello del tuo Google Apps Script (finisce in /exec)
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw0QNyYPHVmHtunAClg_VvJUgVh6XUY1nJJcaA0wzl7gFWTwsCWvGkE34cXavo0pAE62Q/exec";
-
-  // Personalizza questi valori:
-  const IMPORTO_DA_PAGARE = "100"; // es. importo in euro
-  const LINK_PAGAMENTO = "#"; // es. link PayPal, Satispay, bonifico ecc. (opzionale)
-  const NUMERO_CONTATTO = "+39 000 000 0000"; // numero da mostrare a chi non è in lista
-
-  // Dati bancari mostrati a chi risulta in lista ma non ha ancora pagato
-  const DATI_BANCARI = {
-    intestatario: "[Nome Cognome intestatario conto]",
-    iban: "[IT00 A000 0000 0000 0000 0000 000]",
-    causale: "[Nome Cognome] - Matrimonio Daniel & Tryphena"
-  };
-
-  // Dettagli reception — compilali una volta sola qui
-  const DETTAGLI_RECEPTION = {
-    location: "[Nome venue]",
-    indirizzo: "[Indirizzo completo]",
-    parcheggio: "[Info parcheggio]",
-    orario: "[Orario reception]",
-    menu: "[Descrizione menu / link al menu]"
-  };
-
-  const form = document.getElementById('checkForm');
-  const resultBox = document.getElementById('result');
-  const btn = document.getElementById('submitBtn');
-
-  function bankHTML(){
-    return `
-      <div class="details">
-        <div><strong>Intestatario:</strong> ${DATI_BANCARI.intestatario}</div>
-        <div><strong>IBAN:</strong> ${DATI_BANCARI.iban}</div>
-        <div><strong>Causale:</strong> ${DATI_BANCARI.causale}</div>
-      </div>`;
-  }
-
-  function detailsHTML(){
-    return `
-      <div class="details">
-        <div><strong>Location:</strong> ${DETTAGLI_RECEPTION.location}</div>
-        <div><strong>Indirizzo:</strong> ${DETTAGLI_RECEPTION.indirizzo}</div>
-        <div><strong>Parcheggio:</strong> ${DETTAGLI_RECEPTION.parcheggio}</div>
-        <div><strong>Orario:</strong> ${DETTAGLI_RECEPTION.orario}</div>
-        <div><strong>Menu:</strong> ${DETTAGLI_RECEPTION.menu}</div>
-      </div>`;
-  }
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const nome = document.getElementById('nome').value.trim();
-    const cognome = document.getElementById('cognome').value.trim();
-
-    btn.disabled = true;
-    btn.textContent = "Verifica in corso...";
-    resultBox.className = "result";
-    resultBox.innerHTML = "";
-
-    try{
-      const url = `${SCRIPT_URL}?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`;
-      const res = await fetch(url);
-
-      if(!res.ok){
-        throw new Error("HTTP " + res.status);
-      }
-
-      const data = await res.json();
-
-      if(data.status === "not_found"){
-        resultBox.className = "result notfound show";
-        resultBox.innerHTML = `Sorry, non risulti nella lista invitati. Per informazioni contattaci al ${NUMERO_CONTATTO}.`;
-
-      } else if(data.status === "pending"){
-        resultBox.className = "result pending show";
-        resultBox.innerHTML = `
-          <strong>Ciao ${nome}!</strong> Ti abbiamo trovato nella lista.<br>
-          Ricordati di completare la quota di partecipazione (€${IMPORTO_DA_PAGARE}) per confermare la tua presenza, tramite bonifico ai dati qui sotto${LINK_PAGAMENTO !== "#" ? ' oppure tramite il link' : ''}.
-          ${bankHTML()}
-          ${LINK_PAGAMENTO !== "#" ? `<a class="pay-link" href="${LINK_PAGAMENTO}" target="_blank">Vai al pagamento &rarr;</a>` : ''}
-          ${detailsHTML()}`;
-
-      } else if(data.status === "confirmed"){
-        resultBox.className = "result ok show";
-        resultBox.innerHTML = `<strong>Benvenuto/a, ${nome}!</strong> La tua presenza è confermata.${detailsHTML()}`;
-
-      } else if(data.status === "error"){
-        // Errore riportato dallo script stesso (es. nome foglio sbagliato) —
-        // mostrato in chiaro per capire subito cosa sistemare
-        resultBox.className = "result debug show";
-        resultBox.innerHTML = "Errore dallo script: " + (data.message || "sconosciuto");
-
-      } else {
-        resultBox.className = "result notfound show";
-        resultBox.innerHTML = "Si è verificato un errore. Riprova tra poco.";
-      }
-    } catch(err){
-      resultBox.className = "result debug show";
-      resultBox.innerHTML = "Impossibile contattare il sistema di verifica.<br>Dettaglio tecnico: " + err.message;
-    }
-
-    btn.disabled = false;
-    btn.textContent = "Verifica";
-  });
-</script>
-
-</body>
-</html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Verify Invitation</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet"><style>
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;font-family:Manrope,sans-serif;color:#fff;background:radial-gradient(circle at 15% 15%,rgba(255,109,42,.25),transparent 28%),linear-gradient(135deg,#151110,#241714,#151110)}
+.card{width:min(560px,100%);padding:42px;border-radius:28px;background:rgba(255,255,255,.06);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.12)}
+h1{font-family:"Cormorant Garamond",serif;font-size:3rem;margin:.2em 0}.eyebrow,.sub,label,.back{color:#bdbdbd}.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase}.sub{margin-bottom:22px}label{display:block;margin:16px 0 8px;font-size:12px}
+input{width:100%;padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#fff}
+button{margin-top:22px;width:100%;padding:14px;border:none;border-radius:999px;background:#ff6d2a;color:#fff;font-weight:600;cursor:pointer}.result{display:none;margin-top:20px;padding:16px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12)}.show{display:block}.back{display:inline-block;margin-top:20px;text-decoration:none}
+</style></head><body><div class="card"><div class="eyebrow">PRIVATE RECEPTION ACCESS</div><h1>Verify Your Invitation</h1><div class="sub">Enter your first and last name exactly as written on your invitation.</div><form id="checkForm"><label for="nome">First Name</label><input id="nome" autocomplete="given-name" required><label for="cognome">Last Name</label><input id="cognome" autocomplete="family-name" required><button id="submitBtn">Verify Invitation</button></form><div id="result" class="result"></div><a class="back" href="index.html">← Back to Home</a></div><script>
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbw0QNyYPHVmHtunAClg_VvJUgVh6XUY1nJJcaA0wzl7gFWTwsCWvGkE34cXavo0pAE62Q/exec";
+document.getElementById("checkForm").addEventListener("submit",async e=>{
+e.preventDefault();
+const nome=document.getElementById("nome").value.trim();
+const cognome=document.getElementById("cognome").value.trim();
+const btn=document.getElementById("submitBtn"),resBox=document.getElementById("result");
+btn.disabled=true;btn.textContent="Verifying...";
+try{
+const r=await fetch(`${SCRIPT_URL}?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`);
+if(!r.ok)throw new Error("HTTP "+r.status);
+const data=await r.json();
+resBox.classList.add("show");
+resBox.innerHTML="<pre>"+JSON.stringify(data,null,2)+"</pre>";
+}catch(err){resBox.classList.add("show");resBox.innerHTML="Error: "+err.message;}
+btn.disabled=false;btn.textContent="Verify Invitation";
+});
+</script></body></html>
