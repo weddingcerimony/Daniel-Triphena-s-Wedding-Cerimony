@@ -90,8 +90,43 @@ linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
 }
 
 .nav-link{
-    color:white;
-    text-decoration:none;
+    position:relative;
+    z-index:2;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:12px 20px;
+
+    color:#ffffff !important;
+
+    text-decoration:none !important;
+
+    font-size:14px;
+
+    font-weight:500;
+
+    letter-spacing:.01em;
+
+    white-space:nowrap;
+
+    cursor:pointer;
+
+    user-select:none;
+
+}
+
+  .nav-link:visited{
+    color:#ffffff !important;
+}
+
+.nav-link:hover{
+    color:#ffffff !important;
+}
+
+.nav-link:active{
+    color:#ffffff !important;
 }
 
 .nav-indicator{
