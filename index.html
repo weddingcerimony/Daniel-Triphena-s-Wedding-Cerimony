@@ -1,540 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Daniel & Tryphena — Wedding</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#171313;
-  --bg-soft:#241815;
-  --orange:#FF6D2A;
-  --orange-soft:#ff9a66;
-  --white:#FFFFFF;
-  --gray:#B9B9B9;
-  --line:rgba(255,255,255,0.12);
-  --card:rgba(255,255,255,0.05);
-  --radius:26px;
+ --bg:#171313;--accent:#ff6d2a;--line:rgba(255,255,255,.12);
+ --card:rgba(255,255,255,.05);--text:#fff;--muted:#b8b8b8;
 }
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
+*{margin:0;padding:0;box-sizing:border-box}
 body{
-  background:
-    radial-gradient(circle at 15% 20%, rgba(255,109,42,0.35), transparent 28%),
-    radial-gradient(circle at 80% 75%, rgba(255,109,42,0.18), transparent 24%),
-    linear-gradient(135deg,#120d0d 0%, #2a1712 50%, #120d0d 100%);
-  color:var(--white);
-  font-family:'Manrope', sans-serif;
-  font-weight:300;
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
+ font-family:Manrope,sans-serif;color:var(--text);
+ background:
+ radial-gradient(circle at 15% 20%, rgba(255,109,42,.28), transparent 30%),
+ linear-gradient(135deg,#120d0d,#2a1712,#120d0d);
 }
-
-.wrap{
-  width:min(760px, 92%);
-  margin:auto;
+.wrap{width:min(760px,92%);margin:auto}
+.hero{padding:70px 0;text-align:center}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:"Cormorant Garamond",serif;font-size:clamp(3.4rem,8vw,5.8rem);font-weight:600}
+h1 span{color:var(--accent);font-style:italic}
+.sub{margin:18px 0;color:var(--muted)}
+.date{display:inline-block;padding:12px 22px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+.cards{padding:20px 0 70px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px;margin:16px 0;cursor:pointer;transition:.25s}
+.card:hover{transform:translateY(-3px);border-color:var(--accent)}
+.card h2{margin-bottom:8px}
+.card p{color:var(--muted)}
+.badge{display:inline-block;margin:14px 0;padding:4px 10px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-size:12px}
+.cta{display:inline-block;background:var(--accent);padding:11px 18px;border-radius:999px;color:#fff;text-decoration:none}
+.panel{
+ position:fixed;inset:0;background:#120d0df2;display:flex;
+ justify-content:center;align-items:flex-start;padding:40px 20px;
+ transform:translateY(100%);transition:.45s ease;overflow:auto;z-index:1000;
 }
-
-.hero{
-  padding:48px 0 56px;
-  text-align:center;
-}
-
-.hero-photo{
-  width:170px;
-  height:170px;
-  border-radius:50%;
-  object-fit:cover;
-  margin:0 auto 28px;
-  border:3px solid rgba(255,255,255,0.08);
-}
-
-.eyebrow{
-  font-size:12px;
-  letter-spacing:0.18em;
-  text-transform:uppercase;
-  color:var(--gray);
-  margin-bottom:12px;
-}
-
-.hero h1{
-  font-family:'Cormorant Garamond', serif;
-  font-size:clamp(3.2rem, 8vw, 5.8rem);
-  font-weight:600;
-  line-height:0.95;
-  letter-spacing:-0.02em;
-}
-
-.hero h1 span{
-  color:var(--orange);
-  font-style:italic;
-  margin:0 0.12em;
-}
-
-.hero .sub{
-  margin-top:18px;
-  color:var(--gray);
-  font-size:1rem;
-}
-
-.hero .date{
-  margin-top:24px;
-  display:inline-flex;
-  align-items:center;
-  gap:14px;
-  padding:14px 24px;
-  border-radius:999px;
-  background:var(--card);
-  border:1px solid var(--line);
-  backdrop-filter:blur(10px);
-  font-size:15px;
-}
-
-.divider{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  margin:6px 0 26px;
-  color:var(--orange-soft);
-  font-size:12px;
-  letter-spacing:0.14em;
-  text-transform:uppercase;
-}
-
-.divider::before,
-.divider::after{
-  content:"";
-  flex:1;
-  height:1px;
-  background:var(--line);
-}
-
-.cards{
-  padding:10px 0 60px;
-}
-
-.card{
-  background:var(--card);
-  border:1px solid var(--line);
-  backdrop-filter:blur(12px);
-  border-radius:var(--radius);
-  padding:28px;
-  margin-bottom:16px;
-  transition:.25s ease;
-}
-
-.card:hover{
-  transform:translateY(-2px);
-  border-color:rgba(255,109,42,0.35);
-}
-
-.card-head{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:10px;
-}
-
-.icon{
-  font-size:20px;
-  color:var(--orange);
-  width:24px;
-  text-align:center;
-}
-
-.card h2{
-  font-size:1.35rem;
-  font-weight:700;
-}
-
-.card p{
-  color:var(--gray);
-  padding-left:36px;
-}
-
-.badge{
-  display:inline-block;
-  margin-top:12px;
-  margin-left:36px;
-  padding:4px 12px;
-  border-radius:999px;
-  border:1px solid rgba(255,109,42,0.4);
-  color:var(--orange-soft);
-  font-size:11px;
-  letter-spacing:0.1em;
-  text-transform:uppercase;
-}
-
-.cta{
-  display:inline-block;
-  margin-top:14px;
-  margin-left:36px;
-  padding:11px 18px;
-  border-radius:999px;
-  background:var(--orange);
-  color:var(--white);
-  text-decoration:none;
-  font-weight:600;
-  font-size:14px;
-}
-
-.cta:hover{
-  opacity:0.9;
-}
-
-footer{
-  text-align:center;
-  padding:24px 0 50px;
-  color:var(--gray);
-  font-size:14px;
-}
-
-footer .rings{
-  color:var(--orange);
-  font-size:18px;
-  margin-bottom:8px;
-}
-
-@media (max-width:480px){
-
-  .hero{
-    padding:56px 0 44px;
-  }
-
-  .card{
-    padding:24px 20px;
-  }
-
-  .card p,
-  .badge,
-  .cta{
-    margin-left:0;
-    padding-left:0;
-  }
-
-  .card p{
-    padding-left:0;
-  }
-
-/* ===========================
-   Schedule Overlay
-=========================== */
-
-.overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.75);
-    backdrop-filter:blur(10px);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    opacity:0;
-    visibility:hidden;
-    transition:.35s;
-    z-index:999;
-}
-
-.overlay.active{
-    opacity:1;
-    visibility:visible;
-}
-
-.overlay-card{
-    width:min(900px,90%);
-    max-height:85vh;
-    overflow:auto;
-
-    background:rgba(22,22,22,.85);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:28px;
-
-    padding:50px;
-
-    box-shadow:
-    0 30px 70px rgba(0,0,0,.45);
-
-    backdrop-filter:blur(30px);
-}
-
-.overlay-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:40px;
-}
-
-.overlay-header h2{
-    font-size:2.2rem;
-    color:white;
-}
-
-.close-btn{
-    width:42px;
-    height:42px;
-
-    border-radius:50%;
-    border:none;
-
-    cursor:pointer;
-
-    background:#ff6d29;
-    color:white;
-    font-size:20px;
-}
-
-.timeline{
-    display:flex;
-    flex-direction:column;
-    gap:28px;
-}
-
-.timeline-item{
-    display:grid;
-    grid-template-columns:90px 1fr;
-    gap:20px;
-}
-
-.time{
-    color:#ff6d29;
-    font-weight:600;
-    font-size:1rem;
-}
-
-.event h3{
-    color:white;
-    font-size:1.1rem;
-    margin-bottom:6px;
-}
-
-.event p{
-    color:#bdbdbd;
-    font-size:.95rem;
-}
-  
-}
+.panel.open{transform:translateY(0)}
+.sheet{max-width:760px;width:100%;background:#1b1717;border:1px solid var(--line);
+border-radius:30px;padding:40px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}
+.close{background:var(--accent);color:#fff;border:none;width:42px;height:42px;border-radius:50%;cursor:pointer}
+.item{display:grid;grid-template-columns:80px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.time{color:var(--accent);font-weight:700}
+.event h3{margin-bottom:4px;font-size:1rem}
+.event p{color:var(--muted);font-size:.95rem}
+footer{text-align:center;padding:40px;color:var(--muted)}
 </style>
 </head>
-
 <body>
+<section class="hero">
+<div class="wrap">
+<div class="eyebrow">We invite you to celebrate with us</div>
+<h1>Daniel <span>&</span> Tryphena</h1>
+<div class="sub">We're getting married, and we'd love for you to be there.</div>
+<div class="date">Saturday • September 12, 2026</div>
+</div>
+</section>
 
-  <section class="hero">
-    <div class="wrap">
+<section class="cards"><div class="wrap">
+<div class="card" onclick="openSchedule()">
+<h2>📅 Saturday Schedule</h2>
+<p>Tap to view the full ceremony programme.</p>
+</div>
 
-      <div class="eyebrow">We invite you to celebrate with us</div>
+<div class="card">
+<h2>🎁 Gifts & Bank Details</h2>
+<p>Bank details and gift information.</p>
+</div>
 
-      <h1>Daniel <span>&</span> Tryphena</h1>
+<div class="card">
+<h2>🖼️ Photo Gallery</h2>
+<p>Share your memories from the day.</p>
+</div>
 
-      <div class="sub">
-        We're getting married, and we'd love for you to be there.
-      </div>
+<div class="card">
+<h2>🍽️ Reception Information</h2>
+<p>Venue details, parking and dress code.</p>
+<span class="badge">Private Access</span><br>
+<a class="cta" href="verify.html">Verify Your Invitation</a>
+</div>
+</div></section>
 
-      <div class="date">
-        <span>Saturday</span>
-        <span>•</span>
-        <span>September 12, 2026</span>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="cards">
-    <div class="wrap">
-
-      <div class="divider">Wedding Information</div>
-
-      <div class="card clickable" onclick="openSchedule()">
-        <div class="card-head">
-          <span class="icon">📅</span>
-          <h2>Saturday Schedule</h2>
-        </div>
-
-        <p>
-          Ceremony, dinner, and celebration — all the details about timings and locations.
-        </p>
-      </div>
-
-
-      <div class="card">
-        <div class="card-head">
-          <span class="icon">🎁</span>
-          <h2>Gifts & Bank Details</h2>
-        </div>
-
-        <p>
-          If you would like to give us a gift, you can find all the information here.
-        </p>
-      </div>
-
-      <div class="card">
-        <div class="card-head">
-          <span class="icon">🖼️</span>
-          <h2>Photo Gallery</h2>
-        </div>
-
-        <p>
-          Share your photos and memories from the day with us.
-        </p>
-      </div>
-
-      <div class="card">
-        <div class="card-head">
-          <span class="icon">🍽️</span>
-          <h2>Reception Information</h2>
-        </div>
-
-        <p>
-          Venue details, parking, and dress code — available only to confirmed guests.
-        </p>
-
-        <span class="badge">Private Access</span><br>
-
-        <a class="cta" href="verify.html">
-          Verify Your Invitation →
-        </a>
-      </div>
-
-    </div>
-  </section>
-
-<div class="overlay" id="scheduleOverlay">
-
-<div class="overlay-card">
-
-<div class="overlay-header">
-
+<div class="panel" id="schedule">
+<div class="sheet">
+<div class="top">
 <h2>Saturday Ceremony</h2>
-
-<button class="close-btn" onclick="closeSchedule()">✕</button>
-
+<button class="close" onclick="closeSchedule()">✕</button>
 </div>
 
-<div class="timeline">
-
-<div class="timeline-item">
-<div class="time">13:30</div>
-<div class="event">
-<h3>Music Interlude</h3>
-<p>Guests are welcomed as live music begins.</p>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="time">13:45</div>
-<div class="event">
-<h3>Opening Prayer</h3>
-<p>Opening words and prayer.</p>
+<div class="item"><div class="time">13:30</div><div class="event"><h3>Music Interlude</h3><p>Guests arrival.</p></div></div>
+<div class="item"><div class="time">13:45</div><div class="event"><h3>Opening Prayer</h3><p>Opening prayer.</p></div></div>
+<div class="item"><div class="time">13:50</div><div class="event"><h3>Worship Medley</h3><p>Congregational worship.</p></div></div>
+<div class="item"><div class="time">14:05</div><div class="event"><h3>The Processional</h3><p>Entrance of the Groom & Bride.</p></div></div>
+<div class="item"><div class="time">14:20</div><div class="event"><h3>The Main Ceremony</h3><p>Wedding vows.</p></div></div>
+<div class="item"><div class="time">15:00</div><div class="event"><h3>Signing Certificate</h3><p>Marriage certificate signing.</p></div></div>
+<div class="item"><div class="time">15:15</div><div class="event"><h3>Word of God</h3><p>Bible message.</p></div></div>
+<div class="item"><div class="time">15:35</div><div class="event"><h3>Presentation of Gifts</h3><p>Gift presentation.</p></div></div>
+<div class="item"><div class="time">15:50</div><div class="event"><h3>Vote of Thanks</h3><p>Words of appreciation.</p></div></div>
+<div class="item"><div class="time">16:00</div><div class="event"><h3>Announcements & Closing Prayer</h3><p>Closing remarks.</p></div></div>
+<div class="item"><div class="time">16:10</div><div class="event"><h3>Recession</h3><p>The newly married couple exits.</p></div></div>
 </div>
 </div>
 
-<div class="timeline-item">
-<div class="time">13:50</div>
-<div class="event">
-<h3>Worship Medley</h3>
-<p>A moment of praise and worship.</p>
-</div>
-</div>
+<footer>💍 With love, Daniel &amp; Tryphena</footer>
 
-<div class="timeline-item">
-<div class="time">14:05</div>
-<div class="event">
-<h3>The Processional</h3>
-<p>Entrance of the groom followed by the bride.</p>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="time">14:20</div>
-<div class="event">
-<h3>The Main Ceremony</h3>
-<p>The wedding celebration begins.</p>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="time">15:00</div>
-<div class="event">
-<h3>Signing Certificate</h3>
-<p>Official signing of the marriage certificate.</p>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="time">15:15</div>
-<div class="event">
-<h3>Word of God</h3>
-<p>Bible reading and message.</p>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="time">15:35</div>
-<div class="event">
-<h3>Presentation of Gifts</h3>
-<p>Presentation and thanksgiving.</p>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="time">15:50</div>
-<div class="event">
-<h3>Vote of Thanks</h3>
-<p>Words of appreciation.</p>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="time">16:00</div>
-<div class="event">
-<h3>Announcements & Closing Prayer</h3>
-<p>Final announcements and closing prayer.</p>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="time">16:10</div>
-<div class="event">
-<h3>Recession</h3>
-<p>The newly married couple exits the ceremony.</p>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-  <script>
-
-function openSchedule(){
-document.getElementById("scheduleOverlay").classList.add("active");
-}
-
-function closeSchedule(){
-document.getElementById("scheduleOverlay").classList.remove("active");
-}
-
+<script>
+function openSchedule(){document.getElementById('schedule').classList.add('open');document.body.style.overflow='hidden';}
+function closeSchedule(){document.getElementById('schedule').classList.remove('open');document.body.style.overflow='auto';}
 </script>
-
-  
-  <footer>
-    <div class="rings">💍</div>
-    With love, Daniel & Tryphena
-  </footer>
-
 </body>
 </html>
