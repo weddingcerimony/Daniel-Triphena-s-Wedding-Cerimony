@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verifica invito — Daniel & Tryphena</title>
+<title>Private Reception Access — Daniel & Tryphena</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#2a211b;
@@ -18,9 +18,9 @@
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{
-    background:var(--cream);
-    color:var(--ink);
-    font-family:'Jost', sans-serif;
+    background:radial-gradient(circle at 15% 15%, rgba(255,109,42,.22), transparent 28%),linear-gradient(135deg,#151110,#241714,#151110);
+    color:#fff;
+    font-family:'Manrope', sans-serif;
     font-weight:300;
     min-height:100vh;
     display:flex;
@@ -32,7 +32,7 @@
   .box{
     max-width:440px;
     width:100%;
-    background:var(--paper);
+    background:rgba(255,255,255,.06);backdrop-filter:blur(24px);border-radius:28px;
     border:1px solid var(--line);
     padding:38px 32px;
     text-align:center;
@@ -60,9 +60,9 @@
     padding:11px 12px;
     border:1px solid var(--line);
     background:#fff;
-    font-family:'Jost', sans-serif;
+    font-family:'Manrope', sans-serif;
     font-size:0.95rem;
-    color:var(--ink);
+    color:#fff;
   }
   input:focus{outline:none; border-color:var(--gold);}
   button{
@@ -72,12 +72,12 @@
     background:var(--ink);
     color:var(--paper);
     border:none;
-    font-family:'Jost', sans-serif;
+    font-family:'Manrope', sans-serif;
     font-size:0.9rem;
     letter-spacing:0.03em;
     cursor:pointer;
   }
-  button:hover{background:var(--gold); color:var(--ink);}
+  button:hover{background:var(--gold); color:#fff;}
   button:disabled{opacity:0.6; cursor:default;}
 
   .result{
@@ -94,7 +94,7 @@
   .result.notfound{background:#f6e9e9; border:1px solid #8a3f3f; color:#8a3f3f;}
   .result.debug{background:#eef2f6; border:1px solid #3f5a8a; color:#2a3d5a; font-family:monospace; font-size:0.8rem; word-break:break-word;}
 
-  .details{margin-top:14px; padding-top:14px; border-top:1px solid rgba(0,0,0,0.1); line-height:1.7; color:var(--ink);}
+  .details{margin-top:14px; padding-top:14px; border-top:1px solid rgba(0,0,0,0.1); line-height:1.7; color:#fff;}
   .details strong{display:inline-block; min-width:100px;}
 
   .pay-link{
@@ -121,28 +121,28 @@
 <body>
 
   <div class="box">
-    <div class="eyebrow">Reception</div>
-    <h1>Verifica il tuo invito</h1>
-    <div class="sub">Inserisci nome e cognome esattamente come sull'invito.</div>
+    <div class="eyebrow">PRIVATE RECEPTION ACCESS</div>
+    <h1>Verify Your Invitation</h1>
+    <div class="sub">Enter your first and last name exactly as written on your invitation.</div>
 
     <form id="checkForm">
-      <label for="nome">Nome</label>
+      <label for="nome">First Name</label>
       <input type="text" id="nome" required autocomplete="given-name">
 
-      <label for="cognome">Cognome</label>
+      <label for="cognome">Last Name</label>
       <input type="text" id="cognome" required autocomplete="family-name">
 
-      <button type="submit" id="submitBtn">Verifica</button>
+      <button type="submit" id="submitBtn">Verify Invitation</button>
     </form>
 
     <div id="result" class="result"></div>
 
-    <a class="back" href="index.html">&larr; Torna alla pagina principale</a>
+    <a class="back" href="index.html">&larr; Back to Home</a>
   </div>
 
 <script>
   // Sostituisci questo URL con quello del tuo Google Apps Script (finisce in /exec)
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxR2LJWuLf_KQvBoWDIlv7rz_QgkYFv0Y_M8horaQA2VqmaRSI0-trCOr9Wup0MJyWI6g/exec";
+  const SCRIPT_URL = "INCOLLA_QUI_URL_APPS_SCRIPT";
 
   // Personalizza questi valori:
   const IMPORTO_DA_PAGARE = "100"; // es. importo in euro
