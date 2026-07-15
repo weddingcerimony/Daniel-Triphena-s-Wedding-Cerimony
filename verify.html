@@ -4,9 +4,11 @@ body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:c
 h1{font-family:"Cormorant Garamond",serif;font-size:3rem;margin:.2em 0}.eyebrow,.sub,label,.back{color:#bdbdbd}.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase}.sub{margin-bottom:22px}label{display:block;margin:16px 0 8px;font-size:12px}
 input{width:100%;padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#fff}
 button{margin-top:22px;width:100%;padding:14px;border:none;border-radius:999px;background:#ff6d2a;color:#fff;font-weight:600;cursor:pointer}.result{display:none;margin-top:20px;padding:16px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12)}.show{display:block}.back{display:inline-block;margin-top:20px;text-decoration:none}
-</style></head><body><div class="card"><div class="eyebrow">PRIVATE RECEPTION ACCESS</div><h1>Verify Your Invitation</h1><div class="sub">Enter your first and last name exactly as written on your invitation.</div><form id="checkForm"><label for="nome">First Name</label><input id="nome" autocomplete="given-name" required><label for="cognome">Last Name</label><input id="cognome" autocomplete="family-name" required><button id="submitBtn">Verify Invitation</button></form><div id="result" class="result"></div><a class="back" href="index.html">← Back to Home</a></div><script>
+</style></head><body><div class="card"><div class="eyebrow">PRIVATE RECEPTION ACCESS</div><h1>Verify Your Invitation</h1><div class="sub">Enter your first and last name exactly as written on your invitation.</div><form id="checkForm"><label for="nome">First Name</label><input id="nome" autocomplete="given-name" required><label for="cognome">Last Name</label><input id="cognome" autocomplete="family-name" required><button id="submitBtn">Verify Invitation</button></form><div id="result" class="result"></div><a class="back" href="index.html">← Back to Home</a></div>
+  
+  <script>
 
-  const SCRIPT_URL="https://script.google.com/macros/s/AKfycbwa2r0bTKT9PTe1jdeax1S3vuW-D22oTYIDTt5HAj1p36yThUg-lUiGO2DurmQVNVT2kw/exec";
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbwa2r0bTKT9PTe1jdeax1S3vuW-D22oTYIDTt5HAj1p36yThUg-lUiGO2DurmQVNVT2kw/exec";
 
   document.getElementById("checkForm").addEventListener("submit",async e=>{
 e.preventDefault();
