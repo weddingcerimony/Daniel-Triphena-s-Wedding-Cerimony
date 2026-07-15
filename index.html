@@ -228,6 +228,102 @@ footer .rings{
   .card p{
     padding-left:0;
   }
+
+/* ===========================
+   Schedule Overlay
+=========================== */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(10px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
+    visibility:hidden;
+    transition:.35s;
+    z-index:999;
+}
+
+.overlay.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.overlay-card{
+    width:min(900px,90%);
+    max-height:85vh;
+    overflow:auto;
+
+    background:rgba(22,22,22,.85);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:28px;
+
+    padding:50px;
+
+    box-shadow:
+    0 30px 70px rgba(0,0,0,.45);
+
+    backdrop-filter:blur(30px);
+}
+
+.overlay-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:40px;
+}
+
+.overlay-header h2{
+    font-size:2.2rem;
+    color:white;
+}
+
+.close-btn{
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+    border:none;
+
+    cursor:pointer;
+
+    background:#ff6d29;
+    color:white;
+    font-size:20px;
+}
+
+.timeline{
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+}
+
+.timeline-item{
+    display:grid;
+    grid-template-columns:90px 1fr;
+    gap:20px;
+}
+
+.time{
+    color:#ff6d29;
+    font-weight:600;
+    font-size:1rem;
+}
+
+.event h3{
+    color:white;
+    font-size:1.1rem;
+    margin-bottom:6px;
+}
+
+.event p{
+    color:#bdbdbd;
+    font-size:.95rem;
+}
+  
 }
 </style>
 </head>
@@ -259,7 +355,7 @@ footer .rings{
 
       <div class="divider">Wedding Information</div>
 
-      <div class="card">
+      <div class="card clickable" onclick="openSchedule()">
         <div class="card-head">
           <span class="icon">📅</span>
           <h2>Saturday Schedule</h2>
@@ -313,6 +409,128 @@ footer .rings{
     </div>
   </section>
 
+<div class="overlay" id="scheduleOverlay">
+
+<div class="overlay-card">
+
+<div class="overlay-header">
+
+<h2>Saturday Ceremony</h2>
+
+<button class="close-btn" onclick="closeSchedule()">✕</button>
+
+</div>
+
+<div class="timeline">
+
+<div class="timeline-item">
+<div class="time">13:30</div>
+<div class="event">
+<h3>Music Interlude</h3>
+<p>Guests are welcomed as live music begins.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="time">13:45</div>
+<div class="event">
+<h3>Opening Prayer</h3>
+<p>Opening words and prayer.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="time">13:50</div>
+<div class="event">
+<h3>Worship Medley</h3>
+<p>A moment of praise and worship.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="time">14:05</div>
+<div class="event">
+<h3>The Processional</h3>
+<p>Entrance of the groom followed by the bride.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="time">14:20</div>
+<div class="event">
+<h3>The Main Ceremony</h3>
+<p>The wedding celebration begins.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="time">15:00</div>
+<div class="event">
+<h3>Signing Certificate</h3>
+<p>Official signing of the marriage certificate.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="time">15:15</div>
+<div class="event">
+<h3>Word of God</h3>
+<p>Bible reading and message.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="time">15:35</div>
+<div class="event">
+<h3>Presentation of Gifts</h3>
+<p>Presentation and thanksgiving.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="time">15:50</div>
+<div class="event">
+<h3>Vote of Thanks</h3>
+<p>Words of appreciation.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="time">16:00</div>
+<div class="event">
+<h3>Announcements & Closing Prayer</h3>
+<p>Final announcements and closing prayer.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="time">16:10</div>
+<div class="event">
+<h3>Recession</h3>
+<p>The newly married couple exits the ceremony.</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+  <script>
+
+function openSchedule(){
+document.getElementById("scheduleOverlay").classList.add("active");
+}
+
+function closeSchedule(){
+document.getElementById("scheduleOverlay").classList.remove("active");
+}
+
+</script>
+
+  
   <footer>
     <div class="rings">💍</div>
     With love, Daniel & Tryphena
