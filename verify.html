@@ -440,15 +440,15 @@ result.classList.add("show");
 
 catch(err){
 
-result.innerHTML=`
+console.error(err);
 
+result.innerHTML=`
 <h3>Connection Error</h3>
 
-<p>
+<p>${err.message}</p>
 
-Unable to contact the verification service.
-
-</p>
+`;
+}
 
 `;
 
