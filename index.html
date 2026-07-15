@@ -63,27 +63,29 @@ linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
 
 }
 
-.nav-link{
+.nav-indicator{
 
-    position:relative;
+    position:absolute;
 
-    z-index:2;
+    top:8px;
 
-    text-decoration:none;
+    left:8px;
 
-    color:white;
+    height:calc(100% - 16px);
 
-    padding:12px 22px;
+    width:90px;
 
     border-radius:999px;
 
-    font-size:14px;
+    background:rgba(255,255,255,.08);
 
-    font-weight:500;
+    border:1.5px solid #FF6D2A;
 
-    white-space:nowrap;
+    backdrop-filter:blur(24px);
 
-    transition:color .35s;
+    transition:
+        left .55s cubic-bezier(.22,1,.36,1),
+        width .55s cubic-bezier(.22,1,.36,1);
 
 }
 
@@ -149,25 +151,32 @@ linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
 </head>
 <body>
 
+  
 <nav class="glass-nav">
 
     <div class="nav-indicator"></div>
 
     <a class="nav-link active"
-       data-target="schedule"
-       onclick="openSheet('schedule', this)">
+       href="#home"
+       onclick="goHome(this)">
+        Home
+    </a>
+
+    <a class="nav-link"
+       href="#"
+       onclick="openSheet('schedule', this); return false;">
         Schedule
     </a>
 
     <a class="nav-link"
-       data-target="gifts"
-       onclick="openSheet('gifts', this)">
+       href="#"
+       onclick="openSheet('gifts', this); return false;">
         Gifts
     </a>
 
     <a class="nav-link"
-       data-target="gallery"
-       onclick="openSheet('gallery', this)">
+       href="#"
+       onclick="openSheet('gallery', this); return false;">
         Gallery
     </a>
 
@@ -178,8 +187,9 @@ linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
 
 </nav>
 
+  
 <div class="wrap">
-<section class="hero">
+<section class="hero" id="home">
 <div style="letter-spacing:.2em;color:#bdbdbd;font-size:12px">WE INVITE YOU TO CELEBRATE WITH US</div>
 <h1>Daniel <span>&</span> Tryphena</h1>
 <p>We're getting married and we'd love for you to celebrate this special day with us.</p>
@@ -224,57 +234,61 @@ linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
 </div></div>
 
 <script>
-const indicator = document.querySelector(".nav-indicator");
 
-const navLinks = document.querySelectorAll(".nav-link[data-target]");
+const indicator = document.querySelector(".nav-indicator");
+const navLinks = document.querySelectorAll(".nav-link");
 
 function moveIndicator(el){
 
-    const nav = document.querySelector(".glass-nav");
+    indicator.style.left = el.offsetLeft + "px";
+    indicator.style.width = el.offsetWidth + "px";
 
-    indicator.style.left =
-        (el.offsetLeft) + "px";
-
-    indicator.style.width =
-        el.offsetWidth + "px";
-
-    navLinks.forEach(link=>link.classList.remove("active"));
+    navLinks.forEach(link => link.classList.remove("active"));
 
     el.classList.add("active");
 
 }
 
-window.addEventListener("load",()=>{
+window.addEventListener("load", () => {
 
     moveIndicator(document.querySelector(".nav-link.active"));
 
 });
 
-function openSheet(id,element){
+function goHome(el){
 
-    document
-    .querySelectorAll(".sheet")
-    .forEach(s=>s.classList.remove("open"));
+    closeSheets();
 
-    document
-    .getElementById(id)
-    .classList.add("open");
+    moveIndicator(el);
 
-    document.body.style.overflow="hidden";
+    document.getElementById("home").scrollIntoView({
+        behavior:"smooth"
+    });
 
-    moveIndicator(element);
+}
+
+function openSheet(id, el){
+
+    document.querySelectorAll(".sheet")
+        .forEach(sheet => sheet.classList.remove("open"));
+
+    document.getElementById(id).classList.add("open");
+
+    document.body.style.overflow = "hidden";
+
+    moveIndicator(el);
 
 }
 
 function closeSheets(){
 
-    document
-    .querySelectorAll(".sheet")
-    .forEach(s=>s.classList.remove("open"));
+    document.querySelectorAll(".sheet")
+        .forEach(sheet => sheet.classList.remove("open"));
 
-    document.body.style.overflow="auto";
+    document.body.style.overflow = "auto";
 
 }
+  
 </script>
 
 </body>
