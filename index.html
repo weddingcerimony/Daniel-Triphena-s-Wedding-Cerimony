@@ -89,10 +89,9 @@ linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
 
 }
 
-.nav-link:hover{
-
+.nav-link{
     color:white;
-
+    text-decoration:none;
 }
 
 .nav-indicator{
@@ -241,7 +240,8 @@ const navLinks = document.querySelectorAll(".nav-link");
 function moveIndicator(el){
 
     indicator.style.left = el.offsetLeft + "px";
-    indicator.style.width = el.offsetWidth + "px";
+    indicator.style.width = (el.offsetWidth + 18) + "px";
+  indicator.style.left = (el.offsetLeft - 9) + "px";
 
     navLinks.forEach(link => link.classList.remove("active"));
 
