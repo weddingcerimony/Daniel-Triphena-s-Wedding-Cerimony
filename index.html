@@ -20,14 +20,109 @@ radial-gradient(circle at 15% 15%,rgba(255,109,42,.25),transparent 28%),
 radial-gradient(circle at 80% 75%,rgba(255,109,42,.12),transparent 25%),
 linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
 }
-nav{
-position:fixed;top:18px;left:50%;transform:translateX(-50%);
-display:flex;gap:22px;padding:12px 22px;
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(20px);
-border:1px solid var(--line);
-border-radius:999px;z-index:99}
-nav a{color:#fff;text-decoration:none;font-size:14px}
+  
+/* ===========================
+   Liquid Glass Navigation
+=========================== */
+
+.glass-nav{
+
+    position:fixed;
+
+    top:22px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.06);
+
+    backdrop-filter:blur(28px);
+
+    -webkit-backdrop-filter:blur(28px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+    0 8px 30px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.08);
+
+    z-index:1000;
+
+    overflow:hidden;
+
+}
+
+.nav-link{
+
+    position:relative;
+
+    z-index:2;
+
+    text-decoration:none;
+
+    color:white;
+
+    padding:12px 22px;
+
+    border-radius:999px;
+
+    font-size:14px;
+
+    font-weight:500;
+
+    white-space:nowrap;
+
+    transition:color .35s;
+
+}
+
+.nav-link:hover{
+
+    color:white;
+
+}
+
+.nav-indicator{
+
+    position:absolute;
+
+    left:8px;
+
+    top:8px;
+
+    height:calc(100% - 16px);
+
+    width:110px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.10);
+
+    backdrop-filter:blur(30px);
+
+    border:1.5px solid #FF6D2A;
+
+    box-shadow:
+        0 0 24px rgba(255,109,42,.18);
+
+    transition:
+        left .55s cubic-bezier(.22,1,.36,1),
+        width .55s cubic-bezier(.22,1,.36,1);
+
+}
+
+  
 .wrap{max-width:860px;margin:auto;padding:120px 24px 80px}
 .hero{text-align:center;padding:70px 0}
 .hero h1{font-family:"Cormorant Garamond",serif;font-size:clamp(3.5rem,8vw,6rem)}
@@ -49,15 +144,38 @@ nav a{color:#fff;text-decoration:none;font-size:14px}
 .gallery img{width:100%;aspect-ratio:1;border-radius:18px;object-fit:cover}
 .bank{background:var(--glass);border:1px solid var(--line);padding:26px;border-radius:20px}
 .copy{margin-top:16px;padding:10px 18px;border:none;border-radius:999px;background:var(--accent);color:#fff;cursor:pointer}
+
 </style>
 </head>
 <body>
 
-<nav>
-<a href="#" onclick="openSheet('schedule')">Schedule</a>
-<a href="#" onclick="openSheet('gifts')">Gifts</a>
-<a href="#" onclick="openSheet('gallery')">Gallery</a>
-<a href="verify.html">Reception 🔒</a>
+<nav class="glass-nav">
+
+    <div class="nav-indicator"></div>
+
+    <a class="nav-link active"
+       data-target="schedule"
+       onclick="openSheet('schedule', this)">
+        Schedule
+    </a>
+
+    <a class="nav-link"
+       data-target="gifts"
+       onclick="openSheet('gifts', this)">
+        Gifts
+    </a>
+
+    <a class="nav-link"
+       data-target="gallery"
+       onclick="openSheet('gallery', this)">
+        Gallery
+    </a>
+
+    <a class="nav-link"
+       href="verify.html">
+        Reception
+    </a>
+
 </nav>
 
 <div class="wrap">
@@ -106,14 +224,56 @@ nav a{color:#fff;text-decoration:none;font-size:14px}
 </div></div>
 
 <script>
-function openSheet(id){
-document.querySelectorAll('.sheet').forEach(s=>s.classList.remove('open'));
-document.getElementById(id).classList.add('open');
-document.body.style.overflow='hidden';
+const indicator = document.querySelector(".nav-indicator");
+
+const navLinks = document.querySelectorAll(".nav-link[data-target]");
+
+function moveIndicator(el){
+
+    const nav = document.querySelector(".glass-nav");
+
+    indicator.style.left =
+        (el.offsetLeft) + "px";
+
+    indicator.style.width =
+        el.offsetWidth + "px";
+
+    navLinks.forEach(link=>link.classList.remove("active"));
+
+    el.classList.add("active");
+
 }
+
+window.addEventListener("load",()=>{
+
+    moveIndicator(document.querySelector(".nav-link.active"));
+
+});
+
+function openSheet(id,element){
+
+    document
+    .querySelectorAll(".sheet")
+    .forEach(s=>s.classList.remove("open"));
+
+    document
+    .getElementById(id)
+    .classList.add("open");
+
+    document.body.style.overflow="hidden";
+
+    moveIndicator(element);
+
+}
+
 function closeSheets(){
-document.querySelectorAll('.sheet').forEach(s=>s.classList.remove('open'));
-document.body.style.overflow='auto';
+
+    document
+    .querySelectorAll(".sheet")
+    .forEach(s=>s.classList.remove("open"));
+
+    document.body.style.overflow="auto";
+
 }
 </script>
 
