@@ -271,9 +271,9 @@ linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
 </section>
 
 <section class="list">
-<div class="item" onclick="openSheet('schedule')"><div><h2>Saturday Schedule</h2><small>View the complete ceremony programme.</small></div><div class="arrow">→</div></div>
-<div class="item" onclick="openSheet('gifts')"><div><h2>Gifts & Bank Details</h2><small>Our gift registry and bank details.</small></div><div class="arrow">→</div></div>
-<div class="item" onclick="openSheet('gallery')"><div><h2>Photo Gallery</h2><small>Our favourite memories together.</small></div><div class="arrow">→</div></div>
+<div class="item" onclick="openSheet('schedule', document.querySelectorAll('.nav-link')[1])"> <div><h2>Saturday Schedule</h2><small>View the complete ceremony programme.</small></div><div class="arrow">→</div></div>
+<div class="item" onclick="openSheet('gifts', document.querySelectorAll('.nav-link')[2])"> <div><h2>Gifts & Bank Details</h2><small>Our gift registry and bank details.</small></div><div class="arrow">→</div></div>
+<div class="item" onclick="openSheet('gallery', document.querySelectorAll('.nav-link')[3])"> <div><h2>Photo Gallery</h2><small>Our favourite memories together.</small></div><div class="arrow">→</div></div>
 <div class="item" onclick="location.href='verify.html'"><div><h2>Reception Information</h2><small>Private access for invited guests.</small></div><div class="arrow">🔒</div></div>
 </section>
 </div>
@@ -314,11 +314,11 @@ const navLinks = document.querySelectorAll(".nav-link");
 
 function moveIndicator(el){
 
-    indicator.style.left = el.offsetLeft + "px";
     indicator.style.width = (el.offsetWidth + 18) + "px";
-  indicator.style.left = (el.offsetLeft - 9) + "px";
 
-    navLinks.forEach(link => link.classList.remove("active"));
+    indicator.style.left = (el.offsetLeft - 9) + "px";
+
+    navLinks.forEach(link=>link.classList.remove("active"));
 
     el.classList.add("active");
 
