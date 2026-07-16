@@ -207,8 +207,8 @@ linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
 .sheet{position:fixed;inset:0;background:#151110;transform:translateY(100%);transition:.45s;overflow:auto;z-index:200;padding:90px 24px}
 .sheet.open{transform:translateY(0)}
 .sheetwrap{max-width:850px;margin:auto}
-.close{position:fixed;right:25px;top:25px;background:var(--accent);border:none;color:#fff;width:44px;height:44px;border-radius:50%;font-size:20px;cursor:pointer}
-.timeline .row{display:grid;grid-template-columns:90px 3px 1fr;gap:24px;padding:18px 0}
+  
+  timeline .row{display:grid;grid-template-columns:90px 3px 1fr;gap:24px;padding:18px 0}
 .line{background:var(--accent);border-radius:3px}
 .time{color:var(--accent);font-weight:700}
 .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
@@ -250,9 +250,10 @@ linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
     </a>
 
     <a class="nav-link"
-       href="verify.html">
-        Reception
-    </a>
+   href="verify.html"
+   onclick="moveIndicator(this)">
+   Reception
+</a>
 
 </nav>
 
@@ -298,7 +299,7 @@ linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
 </div></div>
 
 <div class="sheet" id="gallery">
-<button class="close" onclick="closeSheets()">✕</button>
+
 <div class="sheetwrap">
 <h1>Photo Gallery</h1><br>
 <div class="gallery">
@@ -341,16 +342,19 @@ function goHome(el){
 
 }
 
-function openSheet(id, el){
+function openSheet(id, element){
 
-    document.querySelectorAll(".sheet")
+    document
+        .querySelectorAll(".sheet")
         .forEach(sheet => sheet.classList.remove("open"));
 
-    document.getElementById(id).classList.add("open");
+    document
+        .getElementById(id)
+        .classList.add("open");
 
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow="hidden";
 
-    moveIndicator(el);
+    moveIndicator(element);
 
 }
 
