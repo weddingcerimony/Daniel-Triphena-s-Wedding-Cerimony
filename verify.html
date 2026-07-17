@@ -392,7 +392,7 @@ const SCRIPT_URL="https://script.google.com/macros/s/AKfycbw0QNyYPHVmHtunAClg_Vv
 
 const BANK={
     holder:"Kate Arhin",
-    iban:"@Arhin997",
+    paypal:"https://www.paypal.com/qrcodes/p2pqrc/C2T3QDG47AQD8",
     reference:"Daniel & Tryphena Wedding"
 };
 
@@ -464,8 +464,17 @@ form.addEventListener("submit",async(e)=>{
                     <strong>Account Holder</strong><br>
                     ${BANK.holder}<br><br>
 
-                    <strong>IBAN</strong><br>
-                    ${BANK.iban}<br><br>
+                   <strong>Online Payment</strong><br>
+
+<a
+    class="map-btn"
+    href="${BANK.paypal}"
+    target="_blank"
+    rel="noopener">
+    Pay with PayPal →
+</a>
+
+<br><br>
 
                     <strong>Reference</strong><br>
                     ${BANK.reference}<br><br>
