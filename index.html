@@ -224,14 +224,16 @@ linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
 
     left:50%;
 
-    top:0;
-    bottom:0;
+    top:20px;
+    bottom:20px;
 
     width:2px;
 
-    background:rgba(255,255,255,.18);
+    background:rgba(255,255,255,.15);
 
     transform:translateX(-50%);
+
+    z-index:0;
 
 }
 
@@ -245,7 +247,7 @@ linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
 
     align-items:center;
 
-    margin:70px 0;
+    z-index:2;
 
 }
 
@@ -273,7 +275,15 @@ linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
 
 .event{
 
-    max-width:260px;
+    position:relative;
+
+    z-index:2;
+
+    background:#151110;
+
+    padding:8px 22px;
+
+    max-width:280px;
 
 }
 
