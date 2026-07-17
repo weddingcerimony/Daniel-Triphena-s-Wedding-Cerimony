@@ -1,163 +1,600 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="format-detection" content="telephone=no">
+
 <title>Verify Invitation</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-:root{--bg:#151110;--bg2:#241714;--accent:#ff6d2a;--text:#fff;--muted:#bdbdbd;--glass:rgba(255,255,255,.06);--line:rgba(255,255,255,.12);}
-*{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;font-family:Manrope,sans-serif;color:#fff;background:radial-gradient(circle at 15% 15%,rgba(255,109,42,.25),transparent 28%),radial-gradient(circle at 80% 75%,rgba(255,109,42,.12),transparent 25%),linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));}
-.card{width:min(620px,100%);padding:42px;border-radius:28px;background:var(--glass);backdrop-filter:blur(24px);border:1px solid var(--line)}
-.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-h1{font-family:"Cormorant Garamond",serif;font-size:3.4rem;margin:.2em 0}
-.sub{color:var(--muted);margin-bottom:24px}
-label{display:block;margin:18px 0 8px;color:var(--muted);font-size:12px;text-transform:uppercase}
+
+:root{
+
+--bg:#151110;
+--bg2:#241714;
+--accent:#ff6d2a;
+--text:#ffffff;
+--muted:#bdbdbd;
+--glass:rgba(255,255,255,.06);
+--line:rgba(255,255,255,.12);
+
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+min-height:100vh;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:24px;
+
+font-family:Manrope,sans-serif;
+
+color:var(--text);
+
+background:
+
+radial-gradient(circle at 15% 15%,rgba(255,109,42,.22),transparent 28%),
+
+radial-gradient(circle at 80% 75%,rgba(255,109,42,.10),transparent 25%),
+
+linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));
+
+}
+
+.card{
+
+width:min(650px,100%);
+
+padding:42px;
+
+border-radius:30px;
+
+background:var(--glass);
+
+backdrop-filter:blur(26px);
+
+border:1px solid var(--line);
+
+box-shadow:0 30px 80px rgba(0,0,0,.35);
+
+}
+
+.eyebrow{
+
+font-size:12px;
+
+letter-spacing:.22em;
+
+text-transform:uppercase;
+
+color:var(--muted);
+
+margin-bottom:14px;
+
+}
+
+h1{
+
+font-family:"Cormorant Garamond",serif;
+
+font-size:3.5rem;
+
+font-weight:600;
+
+margin-bottom:12px;
+
+line-height:.95;
+
+}
+
+.sub{
+
+color:var(--muted);
+
+line-height:1.8;
+
+margin-bottom:34px;
+
+}
+
+label{
+
+display:block;
+
+margin:18px 0 8px;
+
+font-size:12px;
+
+text-transform:uppercase;
+
+letter-spacing:.08em;
+
+color:var(--muted);
+
+}
 
 input{
+
 width:100%;
-padding:14px 16px;
-border-radius:14px;
-border:1px solid var(--line);
-background:rgba(255,255,255,.04);
-color:#fff;
-font-family:'Manrope',sans-serif;
+
+padding:16px 18px;
+
 font-size:16px;
--webkit-appearance:none;
-appearance:none;
+
+border-radius:16px;
+
+border:1px solid var(--line);
+
+background:rgba(255,255,255,.04);
+
+color:#fff;
+
+outline:none;
+
+transition:.25s;
+
 }
- 
- button{width:100%;margin-top:22px;padding:15px;border:none;border-radius:999px;background:var(--accent);color:#fff;font-weight:700;cursor:pointer}
-.result{display:none;margin-top:22px;padding:22px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid var(--line);animation:fade .35s}
-.result.show{display:block}
-.result h3{margin-bottom:8px}
-.details{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);line-height:1.8}
-.back{display:inline-block;margin-top:20px;color:var(--muted);text-decoration:none}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+input:focus{
+
+border-color:var(--accent);
+
+background:rgba(255,255,255,.06);
+
+}
+
+button{
+
+width:100%;
+
+margin-top:26px;
+
+padding:16px;
+
+border:none;
+
+border-radius:999px;
+
+background:var(--accent);
+
+color:white;
+
+font-size:16px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+button:hover{
+
+transform:translateY(-2px);
+
+}
+
+button:disabled{
+
+opacity:.7;
+
+cursor:wait;
+
+transform:none;
+
+}
+
+.result{
+
+display:none;
+
+margin-top:28px;
+
+padding:26px;
+
+border-radius:22px;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid var(--line);
+
+animation:fade .35s ease;
+
+}
+
+.result.show{
+
+display:block;
+
+}
+
+.result h3{
+
+font-size:1.5rem;
+
+margin-bottom:10px;
+
+font-family:"Cormorant Garamond",serif;
+
+}
+
+.details{
+
+margin-top:22px;
+
+padding-top:22px;
+
+border-top:1px solid var(--line);
+
+line-height:1.9;
+
+}
+
+.details strong{
+
+color:white;
+
+}
+
+.map-btn{
+
+display:inline-flex;
+
+align-items:center;
+
+justify-content:center;
+
+margin-top:24px;
+
+padding:13px 24px;
+
+border-radius:999px;
+
+background:var(--accent);
+
+color:white;
+
+text-decoration:none;
+
+font-weight:600;
+
+transition:.25s;
+
+}
+
+.map-btn:hover{
+
+transform:translateY(-2px);
+
+}
+
+.back{
+
+display:inline-block;
+
+margin-top:26px;
+
+color:var(--muted);
+
+text-decoration:none;
+
+}
+
+.back:hover{
+
+color:white;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:translateY(12px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.card{
+
+padding:30px 22px;
+
+}
+
+h1{
+
+font-size:2.7rem;
+
+}
+
+}
+
 </style>
+
 </head>
-<body>
+
+ <body>
+
 <div class="card">
-<div class="eyebrow">PRIVATE RECEPTION ACCESS</div>
-<h1>Verify Your Invitation</h1>
-<div class="sub">Enter your first and last name exactly as written on your invitation.</div>
 
-<form id="checkForm">
-<label>First Name</label>
-<input id="nome" required autocomplete="given-name">
-<label>Last Name</label>
-<input id="cognome" required autocomplete="family-name">
-<button id="submitBtn">Verify Invitation</button>
-</form>
+    <div class="eyebrow">PRIVATE RECEPTION ACCESS</div>
 
-<div id="result" class="result"></div>
+    <h1>Verify Your Invitation</h1>
 
-<a class="back" href="index.html">← Back to Home</a>
+    <p class="sub">
+        Enter your first and last name exactly as written on your invitation.
+    </p>
+
+    <form id="checkForm">
+
+        <label for="nome">First Name</label>
+
+        <input
+            id="nome"
+            type="text"
+            autocomplete="given-name"
+            required>
+
+        <label for="cognome">Last Name</label>
+
+        <input
+            id="cognome"
+            type="text"
+            autocomplete="family-name"
+            required>
+
+        <button id="submitBtn" type="submit">
+            Verify Invitation
+        </button>
+
+    </form>
+
+    <div id="result" class="result"></div>
+
+    <a class="back" href="index.html">
+        ← Back to Home
+    </a>
+
 </div>
 
 <script>
-const SCRIPT_URL="https://script.google.com/macros/s/AKfycbzjP1LgTP2v8E4bd1EmRpgxrBccfq7-s9XCPYiA57ZOLGRj-c1mpXC7cZkPHTwqXrgmgA/exec";
 
-const BANK={holder:"[Account Holder]",iban:"[IBAN]",reference:"Daniel & Tryphena Wedding"};
-const RECEPTION={venue:"[Venue]",address:"[Address]",time:"[Time]",parking:"[Parking]"};
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbw0QNyYPHVmHtunAClg_VvJUgVh6XUY1nJJcaA0wzl7gFWTwsCWvGkE34cXavo0pAE62Q/exec";
+
+const BANK={
+
+    holder:"[Account Holder]",
+
+    iban:"[IBAN]",
+
+    reference:"Daniel & Tryphena Wedding"
+
+};
+
+const RECEPTION={
+
+    venue:"Il Giardino Ristorante",
+
+    address:"Via S. Gottardo, 34<br>25050 Paderno Franciacorta (BS)",
+
+    time:"Reception from 6:00 PM",
+
+    parking:"Free parking available",
+
+    maps:"https://www.google.com/maps/search/?api=1&query=Il+Giardino+Ristorante+Via+S.+Gottardo+34+25050+Paderno+Franciacorta+BS"
+
+};
 
 const form=document.getElementById("checkForm");
+
 const btn=document.getElementById("submitBtn");
+
 const box=document.getElementById("result");
 
 form.addEventListener("submit",async(e)=>{
- e.preventDefault();
- btn.disabled=true;
- btn.textContent="Verifying...";
- box.className="result";
- try{
-   const nome=document.getElementById("nome").value.trim();
-   const cognome=document.getElementById("cognome").value.trim();
-   const r=await fetch(`${SCRIPT_URL}?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`);
-   if(!r.ok) throw new Error("HTTP "+r.status);
-   const data=await r.json();
 
-  box.innerHTML = `
-<h3>🎉 Welcome, ${nome}!</h3>
+    e.preventDefault();
 
-<p>
-Your invitation has been verified. To complete your attendance, please use the bank details below.
-</p>
+    btn.disabled=true;
 
-<div class="details">
+    btn.textContent="Verifying...";
 
-<p>Bank Account</p>
+    box.className="result";
 
-<p><strong>DANIEL ADU</strong></p>
+    box.innerHTML="";
 
-<p><strong>IT58G0338501601100000180779</strong></p>
+    try{
 
-<p>PayPal</p>
+        const nome=document.getElementById("nome").value.trim();
 
-<p>ohenenomafo@gmail.com</p>
+        const cognome=document.getElementById("cognome").value.trim();
 
-</div>
-`;
-   
-  }else if(data.status==="confirmed"){
+        const response=await fetch(
 
-box.innerHTML = `
+            `${SCRIPT_URL}?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}`
 
-<h3>✅ You're all set, ${nome}!</h3>
+        );
 
-<p>
-Your attendance has been confirmed.
-We can't wait to celebrate this special day with you.
-Below you'll find all the details for the reception.
-</p>
+        if(!response.ok){
 
-<div class="details">
+            throw new Error("Unable to connect to the verification service.");
 
-<strong>📍 Venue</strong><br>
-Il Giardino Ristorante
-<br><br>
+        }
 
-<strong>📍 Address</strong><br>
-Via S. Gottardo, 34<br>
-25050 Paderno Franciacorta (BS)
-<br><br>
+        const data=await response.json();
 
-<strong>🕕 Reception Time</strong><br>
-18:00
-<br><br>
+         if(data.status==="pending"){
 
-<strong>👔 Dress Code</strong><br>
-Elegant
-<br><br>
+            box.innerHTML=`
 
-<a
-class="maps-btn"
-href="https://www.google.com/maps/search/?api=1&query=Il+Giardino+Ristorante+Via+S.+Gottardo+34+25050+Paderno+Franciacorta+BS"
-target="_blank"
-rel="noopener">
+                <h3>🎉 Welcome, ${nome}!</h3>
 
-📍 Open in Google Maps
+                <p>
+                    Your invitation has been successfully verified.
+                    To confirm your attendance, please complete the bank transfer using the details below.
+                </p>
 
-</a>
+                <div class="details">
 
-</div>
+                    <strong>Account Holder</strong><br>
+                    ${BANK.holder}<br><br>
 
-`;
+                    <strong>IBAN</strong><br>
+                    ${BANK.iban}<br><br>
 
-}
-   }else if(data.status==="not_found"){
-      box.innerHTML="<h3>Sorry!</h3><p>We couldn't find your invitation. Please contact the couple if you think this is a mistake.</p>";
-   }else{
-      box.innerHTML="<h3>Error</h3><p>An unexpected response was received.</p>";
-   }
- }catch(err){
-   box.innerHTML=`<h3>Connection error</h3><p>${err.message}</p>`;
- }
- box.classList.add("show");
- btn.disabled=false;
- btn.textContent="Verify Invitation";
+                    <strong>Reference</strong><br>
+                    ${BANK.reference}<br><br>
+
+                    <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:20px 0;">
+
+                    <strong>Reception Venue</strong><br>
+                    ${RECEPTION.venue}<br><br>
+
+                    <strong>Address</strong><br>
+                    ${RECEPTION.address}<br><br>
+
+                    <strong>Reception Begins</strong><br>
+                    ${RECEPTION.time}
+
+                    <br><br>
+
+                    <a
+                        class="map-btn"
+                        href="${RECEPTION.maps}"
+                        target="_blank"
+                        rel="noopener">
+                        Open in Google Maps →
+                    </a>
+
+                </div>
+
+            `;
+
+        }
+
+        else if(data.status==="confirmed"){
+
+            box.innerHTML=`
+
+                <h3>✨ You're all set!</h3>
+
+                <p>
+                    Your attendance has been confirmed.
+                    We can't wait to celebrate this special day with you!
+                </p>
+
+                <div class="details">
+
+                    <strong>Reception Venue</strong><br>
+                    ${RECEPTION.venue}<br><br>
+
+                    <strong>Address</strong><br>
+                    ${RECEPTION.address}<br><br>
+
+                    <strong>Reception Begins</strong><br>
+                    ${RECEPTION.time}<br><br>
+
+                    <strong>Parking</strong><br>
+                    ${RECEPTION.parking}
+
+                    <br><br>
+
+                    <a
+                        class="map-btn"
+                        href="${RECEPTION.maps}"
+                        target="_blank"
+                        rel="noopener">
+                        Open in Google Maps →
+                    </a>
+
+                </div>
+
+            `;
+
+        }
+
+        else if(data.status==="not_found"){
+
+            box.innerHTML=`
+
+                <h3>Sorry!</h3>
+
+                <p>
+                    We couldn't find your invitation.
+                    Please contact the couple if you believe this is a mistake.
+                </p>
+
+            `;
+
+        }
+
+        else{
+
+            box.innerHTML=`
+
+                <h3>Unexpected Error</h3>
+
+                <p>
+                    An unexpected response was received from the server.
+                </p>
+
+            `;
+
+        }
+
+    }
+
+    catch(err){
+
+        box.innerHTML=`
+
+            <h3>Connection Error</h3>
+
+            <p>${err.message}</p>
+
+        `;
+
+    }
+
+    box.classList.add("show");
+
+    btn.disabled=false;
+
+    btn.textContent="Verify Invitation";
+
 });
+
 </script>
-</body></html>
+
+</body>
+
+</html>
