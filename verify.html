@@ -79,26 +79,74 @@ form.addEventListener("submit",async(e)=>{
    if(!r.ok) throw new Error("HTTP "+r.status);
    const data=await r.json();
 
-   if(data.status==="pending"){
-      box.innerHTML=`<h3>🎉 Welcome, ${nome}!</h3>
-      <p>Your invitation has been verified. To complete your attendance, please use the bank details below.</p>
-      <div class="details">
-      <p>  Bank Account: </p>
-     <p> <strong> DANIEL ADU </strong> </p>
-      <p> <strong>IT58G0338501601100000180779</strong> </p> 
-      <p> Pay Pal </p>
-      <p> ohenenomafo@gmail.com </p>
+  box.innerHTML = `
+<h3>🎉 Welcome, ${nome}!</h3>
+
+<p>
+Your invitation has been verified. To complete your attendance, please use the bank details below.
+</p>
+
+<div class="details">
+
+<p>Bank Account</p>
+
+<p><strong>DANIEL ADU</strong></p>
+
+<p><strong>IT58G0338501601100000180779</strong></p>
+
+<p>PayPal</p>
+
+<p>ohenenomafo@gmail.com</p>
+
+</div>
+`;
    
-      </div>`;
-   }else if(data.status==="confirmed"){
-      box.innerHTML=`<h3>✅ You're all set!</h3>
-      <p>Your attendance has been confirmed.</p>
-      <div class="details">
-      <strong>Venue</strong><br>${Il Giardino Ristorante}<br><br>
-      <strong>Address</strong><br>${Via S. Gottardo, 34, 25050 Paderno Franciacorta BS}<br><br>
-      <strong>Time</strong><br>${18:00}<br><br>
-      
-      </div>`;
+  }else if(data.status==="confirmed"){
+
+box.innerHTML = `
+
+<h3>✅ You're all set, ${nome}!</h3>
+
+<p>
+Your attendance has been confirmed.
+We can't wait to celebrate this special day with you.
+Below you'll find all the details for the reception.
+</p>
+
+<div class="details">
+
+<strong>📍 Venue</strong><br>
+Il Giardino Ristorante
+<br><br>
+
+<strong>📍 Address</strong><br>
+Via S. Gottardo, 34<br>
+25050 Paderno Franciacorta (BS)
+<br><br>
+
+<strong>🕕 Reception Time</strong><br>
+18:00
+<br><br>
+
+<strong>👔 Dress Code</strong><br>
+Elegant
+<br><br>
+
+<a
+class="maps-btn"
+href="https://www.google.com/maps/search/?api=1&query=Il+Giardino+Ristorante+Via+S.+Gottardo+34+25050+Paderno+Franciacorta+BS"
+target="_blank"
+rel="noopener">
+
+📍 Open in Google Maps
+
+</a>
+
+</div>
+
+`;
+
+}
    }else if(data.status==="not_found"){
       box.innerHTML="<h3>Sorry!</h3><p>We couldn't find your invitation. Please contact the couple if you think this is a mistake.</p>";
    }else{
